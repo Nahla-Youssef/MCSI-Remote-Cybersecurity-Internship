@@ -1,0 +1,29 @@
+<Sysmon schemaversion="4.90">
+  <!-- Capture all hashes -->
+  <HashAlgorithms>*</HashAlgorithms>
+  <EventFiltering>
+
+    <!-- Log unauthorized read/write access to lsass.exe -->
+    <ProcessAccess onmatch="include">
+     <TargetImage condition="image">C:\Windows\system32\lsass.exe</TargetImage>
+    </ProcessAccess>
+
+    <!-- Capture command line arguments -->
+    <ProcessCreate onmatch="include">
+     <Image condition="end with">cmd.exe</Image>
+    </ProcessCreate>
+    <ProcessCreate onmatch="exclude">
+     <Image condition="end with">powershell.exe</Image>
+    </ProcessCreate>
+
+    <!-- Log drivers loaded -->
+    <DriverLoad onmatch="exclude">
+    </DriverLoad>
+
+    <!-- Log DLLs loaded -->
+    <ImageLoad onmatch="include">
+     <ImageLoaded condition="end with">.dll</ImageLoaded>
+    </ImageLoad>
+
+  </EventFiltering>
+</Sysmon>
