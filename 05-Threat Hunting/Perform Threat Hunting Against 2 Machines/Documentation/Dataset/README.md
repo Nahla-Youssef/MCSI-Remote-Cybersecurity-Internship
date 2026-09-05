@@ -1,3 +1,3 @@
 ---
-# Download this zip file (the dataset).
+# Download this folder (the dataset).
 ---
